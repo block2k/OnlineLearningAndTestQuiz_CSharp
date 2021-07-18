@@ -1,0 +1,362 @@
+﻿@using WebApplication3.Models;
+@{ IEnumerable<Course> listCourses = (IEnumerable<Course>)ViewBag.listC;}
+<!DOCTYPE html>
+<html>
+<title>DucLong Education</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    /*new*/
+    #quizmain {
+        font-family: "Segoe UI",Arial,sans-serif;
+        font-size: 18px;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    #qtext {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    #altcontainer {
+        background-color: #fff;
+        font-size: 120%;
+        line-height: 1.7em;
+    }
+
+    #answerbuttoncontainer {
+        padding: 20px 0;
+    }
+
+    .answerbutton {
+        background-color: #4CAF50;
+        padding: 20px 50px;
+    }
+
+    .markcontainer {
+        position: absolute;
+        left: 15px;
+    }
+
+    i.fa-check {
+        color: #4CAF50;
+    }
+
+    i.fa-times {
+        color: #d9534f;
+        color: #dc3545;
+    }
+
+    .answercomment {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: white;
+        white-space: nowrap;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .linktotutdiv {
+        color: #555;
+    }
+
+        .linktotutdiv a {
+            text-decoration: none;
+        }
+
+            .linktotutdiv a:hover, .linktotutdiv a:active {
+                color: #000;
+            }
+
+    .radiocontainer {
+        background-color: #f1f1f1;
+        position: relative;
+        padding: 10px 10px 10px 40px;
+        margin-bottom: 1px;
+        font-size: 18px;
+        word-wrap: break-word;
+    }
+
+        .radiocontainer.correct {
+            background-color: #ddd;
+        }
+
+            .radiocontainer.correct.selected {
+                background-color: #d4edda;
+            }
+
+        .radiocontainer.wrong {
+            background-color: #f8d7da;
+        }
+    /*new*/
+
+    .w3-theme {
+        color: #fff !important;
+        background-color: #4CAF50 !important
+    }
+
+    .w3-btn {
+        background-color: #4CAF50;
+        margin-bottom: 4px
+    }
+
+    .w3-code {
+        border-left: 4px solid #4CAF50
+    }
+
+    .myMenu {
+        margin-bottom: 150px
+    }
+
+    .activeMenu {
+        background-color: MediumSeaGreen;
+    }
+
+
+    #quizmain {
+        font-family: "Segoe UI",Arial,sans-serif;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    #qtext {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    #altcontainer {
+        background-color: #fff;
+        font-size: 120%;
+        line-height: 1.7em;
+    }
+
+    #answerbuttoncontainer {
+        position: relative;
+        padding: 20px 0;
+    }
+
+    .answerbutton {
+        background-color: #04AA6D;
+        padding: 12px 30px !important;
+        font-size: 17px;
+        border-radius: 5px;
+    }
+
+    #timespent {
+        position: absolute;
+        right: 0;
+        text-align: right;
+        border: none;
+        font-family: "Segoe UI",Arial,sans-serif;
+        font-size: 16px;
+        width: 80px;
+    }
+
+    .linktotutdiv {
+        color: #555;
+        background-color: #FFF4A3;
+    }
+
+        .linktotutdiv a {
+            color: #555;
+        }
+
+            .linktotutdiv a:hover, .linktotutdiv a:active {
+                color: black;
+            }
+    /* The radiocontainer */
+    .radiocontainer {
+        background-color: #E7E9EB;
+        display: block;
+        position: relative;
+        padding: 10px 10px 10px 50px;
+        margin-bottom: 1px;
+        cursor: pointer;
+        font-size: 18px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        word-wrap: break-word;
+    }
+
+        /* Hide the browser's default radio button */
+        .radiocontainer input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom radio button */
+    .checkmark {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        height: 19px;
+        width: 19px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+    .checkedlabel {
+        background-color: #ddd;
+    }
+    /* On mouse-over, add a grey background color */
+    .radiocontainer:hover input ~ .checkmark {
+        /*nothing*/
+    }
+
+    .radiocontainer:hover {
+        background-color: #ddd;
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .radiocontainer input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the indicator (dot/circle) when checked */
+    .radiocontainer input:checked ~ .checkmark:after {
+        display: block;
+    }
+    /* Style the indicator (dot/circle) */
+    .radiocontainer .checkmark:after {
+        top: 6px;
+        left: 6px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: white;
+    }
+
+    /* Set a style for all buttons */
+    #buttonLogin {
+        background-color: #04AA6D;
+        color: white;
+        padding: 7px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        float: right;
+    }
+
+        #buttonLogin:hover {
+            opacity: 0.8;
+        }
+</style>
+<body>
+    @{
+        var active = "";
+
+    }
+    <!-- Top -->
+    <div class="w3-top">
+        <div class="w3-row w3-white w3-padding">
+            <div class="w3-half" style="margin:4px 0 6px 0"><a href='@Url.Action("Index","Home")'><img style="width: 100px;height:32px;" src='~/Images/Block.jpg' alt='W3Schools.com'></a></div>
+            <div class="w3-half w3-margin-top w3-wide w3-hide-medium w3-hide-small"><div class="w3-right">THE WORLD'S LARGEST WEB DEVELOPER SITE</div></div>
+        </div>
+        <div class="w3-bar w3-theme w3-large" style="z-index:4;">
+            <a class="w3-bar-item w3-button w3-left w3-hide-large w3-hover-white w3-large w3-theme w3-padding-16" href="javascript:void(0)" onclick="w3_open()">☰</a>
+            <button id="buttonLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;border:none;">@DateTime.Now.ToLongDateString()</button>
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" @*onclick="w3_show_nav('menuTut')*@>TUTORIALS</a>
+        </div>
+    </div>
+
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar w3-bar-block w3-collapse w3-animate-left" style="z-index:3;width:270px" id="mySidebar">
+        <div class="w3-bar w3-hide-large w3-large">
+            <a href="javascript:void(0)" onclick="w3_show_nav('menuTut')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Tutorials</a>
+            @*<a href="javascript:void(0)" onclick="w3_show_nav('menuRef')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">References</a>*@
+        </div>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-right w3-xlarge w3-hide-large" title="Close Menu">×</a>
+        <div id="menuTut" class="myMenu">
+            <div class="w3-container">
+                <h3>Tutorials</h3>
+            </div>
+            @foreach (var item in listCourses)
+            {
+                if (item.CourseID == Convert.ToInt32(ViewBag.cId))
+                {
+                    active = "activeMenu";
+                }
+                else
+                {
+                    active = "";
+                }
+                <a class="w3-bar-item w3-button @active" href="@Url.Action("Learn", "Home", new {courseId = item.CourseID })">
+                    Learn @item.CourseName
+                </a>
+            }
+        </div>
+        @*<div id="menuRef" class="myMenu" style="display:none">
+                <div class="w3-container">
+                    <h3>References</h3>
+                </div>
+                <a class="w3-bar-item w3-button" href='/tags/default.asp'>HTML Tag Reference</a>
+                <a class="w3-bar-item w3-button" href='/colors/default.asp'>HTML Color Reference</a>
+                <a class="w3-bar-item w3-button" href='/cssref/default.asp'>CSS Reference</a>
+                <a class="w3-bar-item w3-button" href='/cssref/css_selectors.asp'>CSS Selector Reference</a>
+                <a class="w3-bar-item w3-button" href='/w3css/w3css_references.asp'>W3.CSS Reference</a>
+                <a class="w3-bar-item w3-button" href='/jsref/default.asp'>JavaScript Reference</a>
+                <a class="w3-bar-item w3-button" href='/php/php_ref_array.asp'>PHP Reference</a>
+                <a class="w3-bar-item w3-button" href='/sql/sql_quickref.asp'>SQL Reference</a>
+            </div>*@
+    </div>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
+    <div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
+        @RenderBody()
+        <footer class="w3-panel w3-padding-32 w3-card-4 w3-light-grey w3-center w3-opacity">
+            <p>
+                <nav>
+                    <a href="#" target="_self">FORUM</a> |
+                    <a href="#" target="_top">ABOUT</a>
+                </nav>
+            </p>
+        </footer>
+
+        <!-- END MAIN -->
+        <!--</div>-->
+
+        <script>
+            // Script to open and close the sidebar
+            function w3_open() {
+                document.getElementById("mySidebar").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+
+            function w3_show_nav(name) {
+                document.getElementById("menuTut").style.display = "none";
+                document.getElementById("menuRef").style.display = "none";
+                document.getElementById(name).style.display = "block";
+                w3 - open();
+            }
+        </script>
+
+        <script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
+
+        <script>
+            w3CodeColor();
+        </script>
+
+</body>
+</html>

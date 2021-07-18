@@ -1,0 +1,94 @@
+﻿@using WebApplication3.Models;
+
+@{
+    ViewBag.Title = "ManageQuiz";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    IEnumerable<Course> courses = (IEnumerable<Course>)ViewBag.ListCategory;
+    IEnumerable<Quiz_Bank> quizbanks = (IEnumerable<Quiz_Bank>)ViewBag.listQuiz;
+    Account account = (Account)Session["account"];
+    if (account == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+
+<div class="container mt-5">
+    <div class="col">
+        <p class="text-white mt-5 mb-5">Welcome back, <b>@account.FullName</b></p>
+    </div>
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="tm-product-table-container">
+                    <table class="table table-hover tm-table-small tm-product-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Quiz ID</th>
+                                <th scope="col">Question</th>
+                                <th scope="col">Answer</th>
+                                <th scope="col">Option 1</th>
+                                <th scope="col">Option 2</th>
+                                <th scope="col">Option 3</th>
+                                <th scope="col">Option 4</th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in quizbanks)
+                            {
+                                <tr>
+                                    <td class="tm-product-name" style="width:auto;"> @item.QuizID</td>
+                                    <td style="width:auto;">
+                                        <a href="@Url.Action("UpdateQuiz","Admin",new { quizId = item.QuizID})"> @item.Question</a>
+                                    </td>
+                                    <td style="width:auto;">@item.Answer</td>
+                                    <td style="width: auto;">@item.Option1</td>
+                                    <td style="width: auto;">@item.Option2</td>
+                                    <td style="width: auto;">@item.Option3</td>
+                                    <td style="width: auto;">@item.Option4</td>
+                                    <td>
+                                        <a href="@Url.Action("DeleteQuiz","Admin",new { quizId = item.QuizID,courseId= ViewBag.courseId})"
+                                           onclick="return confirm('Are you sure want to delete?')"
+                                           class="tm-product-delete-link">
+                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- table container -->
+                <a href="@Url.Action("AddQuiz", "Admin", new { courseId = ViewBag.courseId})"
+                   class="btn btn-primary btn-block text-uppercase mb-3">Add Quiz</a>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                <h2 class="tm-block-title">Course Categories</h2>
+                <div class="tm-product-table-container">
+                    <table class="table tm-table-small tm-product-table">
+                        <tbody>
+                            @foreach (var item in courses)
+                            {
+                                <tr>
+                                    <td class="tm-product-name" id="@(item.CourseID == Convert.ToInt32(ViewBag.courseId)?"activeCtgr":"")">
+                                        <a href="@Url.Action("ManageQuiz","Admin", new {courseId = item.CourseID })" style="color:white;">
+                                            @item.CourseName
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table container -->
+                @*<button class="btn btn-primary btn-block text-uppercase mb-3">
+                        Add new category
+                    </button>*@
+            </div>
+        </div>
+    </div>
+</div>
+

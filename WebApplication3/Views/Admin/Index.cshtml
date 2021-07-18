@@ -1,0 +1,90 @@
+﻿@using WebApplication3.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    IEnumerable<Course> courses = (IEnumerable<Course>)ViewBag.ListCategory;
+    IEnumerable<Course_Lesson> course_Lessons = (IEnumerable<Course_Lesson>)ViewBag.listLesson;
+    Account account = (Account)Session["account"];
+    if (account == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+
+<div class="container mt-5">
+    <div class="col">
+        <p class="text-white mt-5 mb-5">Welcome back, <b>@account.FullName</b></p>
+    </div>
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+                <div class="tm-product-table-container">
+                    <table class="table table-hover tm-table-small tm-product-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Lesson ID</th>
+                                <th scope="col">Lesson Name</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Summary</th>
+                                <th scope="col">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in course_Lessons)
+                            {
+                                <tr>
+                                    <td class="tm-product-name" style="width:auto;"> @item.LessonID</td>
+                                    <td style="width:auto;">
+                                        <a href="@Url.Action("UpdateLesson", "Admin",new { lessonId = item.LessonID} )"> @item.LessonName</a>
+                                    </td>
+                                    <td style="width:auto;">@item.LessonAuthor</td>
+                                    <td style="width: 250px;">
+                                        @item.LessonSumary
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("DeleteLesson", "Admin", new { lessonId = item.LessonID, courseId = ViewBag.courseId})"
+                                           onclick="return confirm('Are you sure want to delete?')"
+                                           class="tm-product-delete-link">
+                                            <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- table container -->
+                <a href="@Url.Action("AddLesson", "Admin",new { courseId = ViewBag.courseId})"
+                   class="btn btn-primary btn-block text-uppercase mb-3">Add new lesson</a>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                <h2 class="tm-block-title">Course Categories</h2>
+                <div class="tm-product-table-container">
+                    <table class="table tm-table-small tm-product-table">
+                        <tbody>
+                            @foreach (var item in courses)
+                            {
+                                <tr>
+                                    <td class="tm-product-name" id="@(item.CourseID == Convert.ToInt32(ViewBag.courseId)?"activeCtgr":"")">
+                                        <a href="@Url.Action("Index","Admin", new {courseId = item.CourseID })" style="color:white;">
+                                            @item.CourseName
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table container -->
+                @*<button class="btn btn-primary btn-block text-uppercase mb-3">
+                        Add new category
+                    </button>*@
+            </div>
+        </div>
+    </div>
+</div>

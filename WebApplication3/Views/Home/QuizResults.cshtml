@@ -1,0 +1,128 @@
+﻿@using WebApplication3.Models;
+@{
+    ViewBag.Title = "QuizResults";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    IEnumerable<Quiz_Bank> quiz_Banks = (IEnumerable<Quiz_Bank>)ViewBag.quiz_Banks;
+    int questionNumber = 0;
+}
+
+<div id="quizmain">
+    <div id="quizcontainer">
+        <h1>@ViewBag.courseName Quiz Results</h1>
+        <hr>
+        @foreach (var item in quiz_Banks)
+        {
+            questionNumber++;
+            <h3>Question @questionNumber:</h3><p>@item.Question</p>
+
+            <div class="radiocontainer
+                 @(item.Option1.Trim().Equals(item.Answer.Trim()) ? "correct":"")
+                 @((item.Option1.Trim().Equals(item.UserAnswer.Trim()) && !item.Option1.Trim().Equals(item.Answer.Trim()))?"wrong":"")
+                 @((item.Option1.Trim().Equals(item.Answer.Trim()) && item.Option1.Trim().Equals(item.UserAnswer.Trim()))?"correct selected":"")
+                 " id="label1" style="padding-right:160px">
+
+                @if (item.Option1.Trim().Equals(item.Answer.Trim()) && item.Option1.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-check"></i></div>
+                }
+                @if (!item.Option1.Trim().Equals(item.Answer.Trim()) && item.Option1.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-times"></i></div>
+                }
+
+                @item.Option1.Trim()
+                @if (item.Option1.Trim().Equals(item.UserAnswer.Trim()) && !item.Option1.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>
+                }
+                @if (item.Option1.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>
+                }
+            </div>
+
+            <div class="radiocontainer
+                 @(item.Option2.Trim().Equals(item.Answer.Trim()) ? "correct":"")
+                 @((item.Option2.Trim().Equals(item.UserAnswer.Trim()) && !item.Option2.Trim().Equals(item.Answer.Trim()))?"wrong":"")
+                 @((item.Option2.Trim().Equals(item.Answer.Trim()) && item.Option2.Trim().Equals(item.UserAnswer.Trim()))?"correct selected":"")
+                 "
+                 id="label1" style="padding-right:160px">
+
+                @if (item.Option2.Trim().Equals(item.Answer.Trim()) && item.Option2.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-check"></i></div>
+                }
+                @if (!item.Option2.Trim().Equals(item.Answer.Trim()) && item.Option2.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-times"></i></div>
+                }
+
+                @item.Option2.Trim()
+                @if (item.Option2.Trim().Equals(item.UserAnswer.Trim()) && !item.Option2.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>
+                }
+                @if (item.Option2.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>
+                }
+            </div>
+
+            <div class="radiocontainer
+                 @(item.Option3.Trim().Equals(item.Answer.Trim()) ? "correct":"")
+                 @((item.Option3.Trim().Equals(item.UserAnswer.Trim()) && !item.Option3.Trim().Equals(item.Answer.Trim()))?"wrong":"")
+                 @((item.Option3.Trim().Equals(item.Answer.Trim()) && item.Option3.Trim().Equals(item.UserAnswer.Trim()))?"correct selected":"")
+                 "
+                 id="label1" style="padding-right:160px">
+
+                @if (item.Option3.Trim().Equals(item.Answer.Trim()) && item.Option3.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-check"></i></div>
+                }
+                @if (!item.Option3.Trim().Equals(item.Answer.Trim()) && item.Option3.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-times"></i></div>
+                }
+
+                @item.Option3.Trim()
+                @if (item.Option3.Trim().Equals(item.UserAnswer.Trim()) && !item.Option3.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>
+                }
+                @if (item.Option3.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>
+                }
+            </div>
+
+            <div class="radiocontainer
+                 @(item.Option4.Trim().Equals(item.Answer.Trim()) ? "correct":"")
+                 @((item.Option4.Trim().Equals(item.UserAnswer.Trim()) && !item.Option4.Trim().Equals(item.Answer.Trim()))?"wrong":"")
+                 @((item.Option4.Trim().Equals(item.Answer.Trim()) && item.Option4.Trim().Equals(item.UserAnswer.Trim()))?"correct selected":"")
+                 "
+                 id="label1" style="padding-right:160px">
+
+
+                @if (item.Option4.Trim().Equals(item.Answer.Trim()) && item.Option4.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-check"></i></div>
+                }
+                @if (!item.Option4.Trim().Equals(item.Answer.Trim()) && item.Option4.Trim().Equals(item.UserAnswer.Trim()))
+                {
+                    <div class="markcontainer"><i class="fa fa-times"></i></div>
+                }
+
+                @item.Option4.Trim()
+                @if (item.Option4.Trim().Equals(item.UserAnswer.Trim()) && !item.Option4.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Your answer&nbsp;&nbsp;</span>
+                }
+                @if (item.Option4.Trim().Equals(item.Answer.Trim()))
+                {
+                    <span class="answercomment">&nbsp;&nbsp;Correct answer&nbsp;&nbsp;</span>
+                }
+            </div>
+            <hr>
+        }
+    </div>
+</div>

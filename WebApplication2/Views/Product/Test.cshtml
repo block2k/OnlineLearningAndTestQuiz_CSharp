@@ -1,0 +1,25 @@
+﻿@using WebApplication2.Models;
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    string name = ViewBag.name;
+    Class1 class1 = ViewBag.djtme;
+}
+<h2>
+  @name
+    yeu
+    @ViewBag.nguoiyeu
+</h2>
+
+<h3>
+    @class1.id
+</h3>
+<h4>
+   @class1.name
+</h4>
+
+<h5>
+    @ViewBag.djtme.id
+</h5>

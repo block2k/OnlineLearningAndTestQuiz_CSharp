@@ -1,0 +1,88 @@
+﻿@using WebApplication3.Models;
+@{
+    ViewBag.Title = "QuizTest";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    Quiz_Bank quiz = (Quiz_Bank)ViewBag.quiz;
+    int currentQuestion = Convert.ToInt32(@ViewBag.currentQuestion);
+    int totalQuestion = Convert.ToInt32(@ViewBag.totalQuestion);
+    double percent = Convert.ToDouble(ViewBag.percent);
+}
+
+<h2>@ViewBag.courseName Test</h2>
+<div id="quizmain">
+    <div id="quizcontainer">
+        @if (currentQuestion <= totalQuestion)
+        {
+            @*--------quiz------*@
+            <h3>Question @currentQuestion of @totalQuestion:</h3>
+            <p id="qtext">@quiz.Question</p>
+            <form role="form" id="quizform" name="quizform" action="QuizTest?courseId=@ViewBag.cId" method="post">
+                <input type="hidden" name="currentQuestion" value="@ViewBag.currentQuestion">
+                <input type="hidden" name="totalTrueAnswer" value="@ViewBag.totalTrueAnswer">
+                <input type="hidden" name="quizId" value="@quiz.QuizID">
+                <div style="position:relative;width:100%;">
+                    <div id="altcontainer" class="notranslate">
+                        <label class="radiocontainer" id="label2">
+                            @quiz.Option1
+                            <input type="radio" name="quiz" id="2" value="@quiz.Option1">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radiocontainer" id="label2">
+                            @quiz.Option2
+                            <input type="radio" name="quiz" id="2" value="@quiz.Option2">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radiocontainer" id="label2">
+                            @quiz.Option3
+                            <input type="radio" name="quiz" id="2" value="@quiz.Option3">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radiocontainer" id="label2">
+                            @quiz.Option4
+                            <input type="radio" name="quiz" id="2" value="@quiz.Option4">
+                            <input type="radio" name="quiz" id="2" value="notans" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                        <input hidden type="radio" name="quiz" id="2" value="notans" checked>
+                    </div>
+                </div>
+                <div id="answerbuttoncontainer">
+                    @if (currentQuestion == totalQuestion)
+                    {
+                        <button class="answerbutton w3-btn ws-green" type="submit">Submit</button>
+                    }
+                    else
+                    {
+                        <button class="answerbutton w3-btn ws-green" type="submit">Next ❯</button>
+                    }
+                </div>
+            </form>
+        }
+        @*--------quiz------*@
+        @if (currentQuestion > totalQuestion)
+        {
+    <div class="w3-large" style="text-align:center">
+        <h1>Result:</h1>@ViewBag.totalTrueAnswer of @totalQuestion
+        <p>
+            <b>@ViewBag.percent%</b>
+        </p>
+        @if (percent <= 50)
+        {
+            <p>Don’t cry because you did try your best!</p>
+        }
+        else if (percent > 50 && percent < 80)
+        {
+            <p>Keep working hard!</p>
+        }
+        else
+        {
+            <p>You’re doing great! You’ve done a great job!</p>
+        }
+        <input type="button" class="w3-btn w3-round w3-green quizresultbtn" value="Check your answers" onclick="location='QuizResults?courseId=@ViewBag.cId'">
+        <input type="button" class="w3-btn w3-round w3-blue quizresultbtn" value="Try Again" onclick="location='QuizTest?courseId=@ViewBag.cId'">
+        <input type="button" class="w3-btn w3-round w3-green quizresultbtn" value="Back to Learn" onclick="location='Learn?courseId=@ViewBag.cId'">
+    </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,59 @@
+﻿@model Project.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaHang1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHang1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHang1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHang1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DVT1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DVT1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gia1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gia1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

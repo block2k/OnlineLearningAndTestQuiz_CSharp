@@ -1,0 +1,49 @@
+﻿@using WebApplication3.Models;
+@{
+    ViewBag.Title = "LessonDetail";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    Course_Lesson course_Lesson = (Course_Lesson)ViewBag.Lesson;
+    var preCourse = Convert.ToInt32(course_Lesson.LessonID) - 1;
+    var nextCourse = Convert.ToInt32(course_Lesson.LessonID) + 1;
+    int firstCourseId = Convert.ToInt32(ViewBag.firstCourseId);
+    int lastCourseId = Convert.ToInt32(ViewBag.lastCourseId);
+}
+
+@*ten bai hoc*@
+<h5>
+    <div class="w3-clear nextprev">
+        @if (course_Lesson.LessonID > firstCourseId)
+        {
+            @*<a class="w3-left w3-btn" href="LessonDetail?lessonId=@preCourse&courseId=@course_Lesson.CourseID">❮ Previous</a>*@
+            <a class="w3-left w3-btn" href="@Url.Action("PreviousLesson", "Home", new {courseId= course_Lesson.CourseID,lessonId=course_Lesson.LessonID })">❮ Previous</a>
+        }
+        @if (course_Lesson.LessonID < lastCourseId)
+        {
+            @*<a class="w3-right w3-btn" href="LessonDetail?lessonId=@nextCourse&courseId=@course_Lesson.CourseID">Next ❯</a>*@
+            <a class="w3-right w3-btn" href="@Url.Action("NextLesson", "Home", new {courseId= course_Lesson.CourseID,lessonId=course_Lesson.LessonID })">Next ❯</a>
+        }
+
+    </div>
+</h5>
+
+<h1>@course_Lesson.LessonName</h1>
+
+<hr />
+@course_Lesson.LessonSumary
+<hr />
+@Html.Raw(course_Lesson.LessonContent)
+<h5>
+    <div class="w3-clear nextprev">
+        @if (course_Lesson.LessonID > firstCourseId)
+        {
+            @*<a class="w3-left w3-btn" href="LessonDetail?lessonId=@preCourse&courseId=@course_Lesson.CourseID">❮ Previous</a>*@
+            <a class="w3-left w3-btn" href="@Url.Action("PreviousLesson", "Home", new {courseId= course_Lesson.CourseID,lessonId=course_Lesson.LessonID })">❮ Previous</a>
+        }
+        @if (course_Lesson.LessonID < lastCourseId)
+        {
+            @*<a class="w3-right w3-btn" href="LessonDetail?lessonId=@nextCourse&courseId=@course_Lesson.CourseID">Next ❯</a>*@
+            <a class="w3-right w3-btn" href="@Url.Action("NextLesson", "Home", new {courseId= course_Lesson.CourseID,lessonId=course_Lesson.LessonID })">Next ❯</a>
+        }
+    </div>
+</h5>
+

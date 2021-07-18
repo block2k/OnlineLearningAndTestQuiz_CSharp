@@ -1,0 +1,59 @@
+﻿@using WebApplication3.Models;
+@{ IEnumerable<Course_Lesson> lessons = (IEnumerable<Course_Lesson>)ViewBag.listL;}
+@{
+    ViewBag.Title = "Learn";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+    int endPage = @ViewBag.endPage;
+    int cId = @ViewBag.cid;
+    int page = @ViewBag.page;
+    int prePage = page - 1;
+    int nextPage = page + 1;
+}
+
+
+@foreach (var item in lessons)
+{
+    <div class="w3-card-4" style="width: 100%; border-radius: 10px;">
+        <header class="w3-container w3-blue">
+            <h1><a href="@Url.Action("LessonDetail", "Home", new {lessonId=item.LessonID,  courseId=item.CourseID})" style="text-decoration:none;">@item.LessonName</a></h1>
+        </header>
+        <div class="w3-container">
+            <p>
+                @item.LessonSumary
+            </p>
+        </div>
+        <footer class="w3-container w3-blue">
+            <h5>
+                <p><span class="w3-tag w3-teal">Author: @item.LessonAuthor</span></p>
+
+            </h5>
+        </footer>
+    </div>
+    <br />
+}
+
+<div class="w3-bar">
+    @if (page > 1)
+    {
+        <a href="@Url.Action("Learn", "Home", new { courseId=cId,page=prePage })" style="border-radius:10px;" class="w3-button">«</a>
+    }
+    @for (int i = 1; i <= endPage; i++)
+    {
+        string active = page == i ? "w3-green" : "";
+        <a href="@Url.Action("Learn", "Home", new { courseId=cId,page=i })" style="border-radius:10px;" class="w3-button @active">@i</a>
+    }
+    @if (page < endPage)
+    {
+        <a href="@Url.Action("Learn", "Home", new { courseId=cId,page=nextPage })" style="border-radius:10px;" class="w3-button">»</a>
+    }
+    @if (page <= endPage)
+    {
+        <a href="@Url.Action("QuizTest", "Home", new { courseId=cId})" class="ws-btn w3-blue" style="margin-top:10px;padding:15px 25px;font-size:18px;float:right;text-decoration:none;border-radius:10px;">
+            Start the @ViewBag.courseName Quiz ❯
+        </a>
+    }
+</div>
+
+
+
+

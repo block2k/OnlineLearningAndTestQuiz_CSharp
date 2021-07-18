@@ -1,0 +1,115 @@
+﻿@using WebApplication3.Models;
+
+@{
+    ViewBag.Title = "UpdateQuiz";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    Account account = (Account)Session["account"];
+    IEnumerable<Course> courses = (IEnumerable<Course>)ViewBag.listCourse;
+    Quiz_Bank quiz = (Quiz_Bank)ViewBag.quiz;
+    if (account == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+
+<div class="container tm-mt-big tm-mb-big">
+    <div class="col">
+        <p class="text-white mt-5 mb-5">Welcome back, <b>@account.FullName</b></p>
+    </div>
+    <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Update Quiz</h2>
+                    </div>
+                </div>
+                <form action="UpdateQuiz" method="post" class="tm-edit-product-form">
+                    <input id="Text1" type="text" hidden name="quizId" value="@quiz.QuizID" />
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+
+                            <div class="form-group mb-3">
+                                <label for="category">Category</label>
+                                <select class="custom-select tm-select-accounts" name="category"
+                                        id="category">
+                                    @foreach (var item in courses)
+                                    {
+                                        <option value="@item.CourseID" @(item.CourseID == quiz.CourseID ? "selected" : "")>@item.CourseName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="description">Question</label>
+                                <textarea class="form-control validate tm-small"
+                                          rows="5" style="height:150px;" name="question"
+                                          required>@quiz.Question</textarea>
+                            </div>
+
+
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Answer
+                                </label>
+                                <input id="name"
+                                       name="answer"
+                                       type="text"
+                                       value="@quiz.Answer"
+                                       class="form-control validate" required />
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                            @*<label for="description" style="color: white;">Content</label>
+                                <textarea class="form-control validate tm-small"
+                                          rows="5" style="height: 95%;" name="lessoncontent"
+                                          required></textarea>*@
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Option 1
+                                </label>
+                                <input id="name"
+                                       name="option1"
+                                       type="text"
+                                       value="@quiz.Option1"
+                                       class="form-control validate" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Option 2
+                                </label>
+                                <input id="name"
+                                       name="option2"
+                                       type="text"
+                                       value="@quiz.Option2"
+                                       class="form-control validate" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Option 3
+                                </label>
+                                <input id="name"
+                                       name="option3"
+                                       type="text"
+                                       value="@quiz.Option3"
+                                       class="form-control validate" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Option 4
+                                </label>
+                                <input id="name"
+                                       name="option4"
+                                       type="text"
+                                       value="@quiz.Option4"
+                                       class="form-control validate" required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

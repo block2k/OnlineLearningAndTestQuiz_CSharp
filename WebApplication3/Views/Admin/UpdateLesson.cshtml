@@ -1,0 +1,81 @@
+﻿@using WebApplication3.Models;
+@{
+    ViewBag.Title = "UpdateLesson";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    Course_Lesson lesson = (Course_Lesson)ViewBag.lesson;
+    IEnumerable<Course> courses = (IEnumerable<Course>)ViewBag.listCourse;
+    Account account = (Account)Session["account"];
+    if (account == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+
+<div class="container tm-mt-big tm-mb-big">
+    <div class="col">
+        <p class="text-white mt-5 mb-5">Welcome back, <b>@account.FullName</b></p>
+    </div>
+    <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Edit Lesson</h2>
+                    </div>
+                </div>
+                <form action="UpdateLesson" method="post" class="tm-edit-product-form">
+                    <input id="Text1" type="text" hidden name="lessonid" value="@lesson.LessonID" />
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Lesson Name
+                                </label>
+                                <input id="name"
+                                       name="lessonname"
+                                       type="text"
+                                       value="@lesson.LessonName"
+                                       class="form-control validate" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="description">Summary</label>
+                                <textarea class="form-control validate tm-small"
+                                          rows="5" name="summary"
+                                          required>@lesson.LessonSumary.Trim()</textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="category">Category</label>
+                                <select class="custom-select tm-select-accounts" name="category"
+                                        id="category">
+                                    @foreach (var item in courses)
+                                    {
+                                        <option value="@item.CourseID" @(lesson.CourseID == item.CourseID ? "selected" : "")>@item.CourseName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Author Name
+                                </label>
+                                <input id="name"
+                                       name="authorname"
+                                       type="text"
+                                       value="@lesson.LessonAuthor"
+                                       class="form-control validate" />
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                            <label for="description" style="color: white;">Content</label>
+                            <textarea class="form-control validate tm-small"
+                                      rows="5" style="height: 95%;" name="lessoncontent"
+                                      required>@lesson.LessonContent</textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,81 @@
+﻿@using WebApplication3.Models;
+
+@{
+    ViewBag.Title = "AddLesson";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    IEnumerable<Course> courses = (IEnumerable<Course>)ViewBag.listCourse;
+    Account account = (Account)Session["account"];
+    if (account == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+
+<div class="container tm-mt-big tm-mb-big">
+    <div class="col">
+        <p class="text-white mt-5 mb-5">Welcome back, <b>@account.FullName</b></p>
+    </div>
+    <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Add Lesson</h2>
+                    </div>
+                </div>
+                <form action="AddLesson" method="post" class="tm-edit-product-form">
+                    <input id="Text1" type="text" hidden name="lessonid" value="" />
+                    <div class="row tm-edit-product-row">
+                        <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Lesson Name
+                                </label>
+                                <input id="name"
+                                       name="lessonname"
+                                       type="text"
+                                       value=""
+                                       class="form-control validate" required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="description">Summary</label>
+                                <textarea class="form-control validate tm-small"
+                                          rows="5" name="summary"
+                                          required></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="category">Category</label>
+                                <select class="custom-select tm-select-accounts" name="category"
+                                        id="category">
+                                    @foreach (var item in courses)
+                                    {
+                                        <option value="@item.CourseID" @(Convert.ToInt32(ViewBag.courseId) == item.CourseID ? "selected" : "")>@item.CourseName</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">
+                                    Author Name
+                                </label>
+                                <input id="name"
+                                       name="authorname"
+                                       type="text"
+                                       value="@account.FullName"
+                                       class="form-control validate" required />
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                            <label for="description" style="color: white;">Content</label>
+                            <textarea class="form-control validate tm-small"
+                                      rows="5" style="height: 95%;" name="lessoncontent"
+                                      required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Now</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
